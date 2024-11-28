@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="firsttechms.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <header>
     <div class="logo">CRAB Robotics Team</div>
@@ -28,33 +30,23 @@
 
   <section id="about" class="content-section fade-in">
     <h2>About Us</h2>
-    <p>We are a passionate group of students who love building and programming robots. From design to competition, we strive to innovate and excel.</p>
+    <p>We are a passionate group of students who love building and programming robots. From design to competition, we
+      strive to innovate and excel.</p>
   </section>
 
   <section id="team" class="content-section fade-in">
     <h2>Meet Our Team</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <h3>Who wants to go first?</h3>
-        <p>This person has balls.</p>
-      </div>
-      <div class="project-card">
-        <h3>Erik</h3>
-        <p>Erik has 3 Microsoft certificates and never stops telling others.</p>
-      </div>
-      <div class="project-card">
-        <h3>Someone else</h3>
-        <p>Yes.</p>
-      </div>
-    </div>
+    <img href="./media/landscape.jpg">
   </section>
 
   <section id="contact" class="content-section fade-in">
     <h2>Contact Us</h2>
     <p>Interested in collaborating? Reach out to us!</p>
-    <a href="mailto:roboticsclub@example.com" class="btn-link">Email Us</a>
-    <a href="https://www.instagram.com/" class="btn-link">Instagram</a>
-    <a href="https://gb.linkedin.com/" class="btn-link">LinkedIn</a>
+    <ul class="contact-list">
+      <li><a href="mailto:roboticsclub@example.com" class="btn-link">Email Us</a></li>
+      <li><a href="https://www.instagram.com/" class="btn-link">Instagram</a></li>
+      <li><a href="https://gb.linkedin.com/" class="btn-link">LinkedIn</a></li>
+    </ul>
   </section>
 
   <footer>
@@ -72,10 +64,11 @@
         }
       });
     }, {
-      threshold: 0.1
+      threshold: 0.05
     });
 
     fadeElements.forEach(el => observer.observe(el));
   });
 </script>
+
 </html>
