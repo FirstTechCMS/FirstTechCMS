@@ -26,42 +26,56 @@
     <a href="#about" class="btn">Learn More</a>
   </section>
 
-  <section id="about" class="content-section">
+  <section id="about" class="content-section fade-in">
     <h2>About Us</h2>
     <p>We are a passionate group of students who love building and programming robots. From design to competition, we strive to innovate and excel.</p>
   </section>
 
-  <section id="projects" class="content-section">
-    <h2>Our Projects</h2>
+  <section id="team" class="content-section fade-in">
+    <h2>Meet Our Team</h2>
     <div class="projects-grid">
       <div class="project-card">
-        <h3>Autonomous Rover</h3>
-        <p>An all-terrain rover capable of autonomous navigation.</p>
+        <h3>Who wants to go first?</h3>
+        <p>This person has balls.</p>
       </div>
       <div class="project-card">
-        <h3>Ball Thrower Bot</h3>
-        <p>A fast and accurate robot for ball-throwing challenges.</p>
+        <h3>Erik</h3>
+        <p>Erik has 3 Microsoft certificates and never stops telling others.</p>
       </div>
       <div class="project-card">
-        <h3>AI Vision System</h3>
-        <p>Advanced machine vision for real-time object detection.</p>
+        <h3>Someone else</h3>
+        <p>Yes.</p>
       </div>
     </div>
   </section>
 
-  <section id="team" class="content-section">
-    <h2>Meet Our Team</h2>
-    <p>Our team consists of talented builders, programmers, and designers.</p>
-  </section>
-
-  <section id="contact" class="content-section">
+  <section id="contact" class="content-section fade-in">
     <h2>Contact Us</h2>
-    <p>Interested in joining or learning more? Reach out to us!</p>
-    <a href="mailto:roboticsclub@example.com" class="btn">Email Us</a>
+    <p>Interested in collaborating? Reach out to us!</p>
+    <a href="mailto:roboticsclub@example.com" class="btn-link">Email Us</a>
+    <a href="https://www.instagram.com/" class="btn-link">Instagram</a>
+    <a href="https://gb.linkedin.com/" class="btn-link">LinkedIn</a>
   </section>
 
   <footer>
-    <p>&copy; 2024 CRAB Robotics Team. All rights reserved.</p>
+    <p>2024 CRAB Robotics Team.</p>
   </footer>
 </body>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    fadeElements.forEach(el => observer.observe(el));
+  });
+</script>
 </html>
