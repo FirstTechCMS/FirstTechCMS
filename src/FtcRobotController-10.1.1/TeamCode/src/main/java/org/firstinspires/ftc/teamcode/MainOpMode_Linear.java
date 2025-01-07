@@ -11,7 +11,7 @@ public class MainOpMode_Linear extends LinearOpMode {
     private DrivetrainController drivetrainController;
     private void updateTelemetry(){
         telemetry.addLine("================ Controls ================");
-        telemetry.addData("Gamepad 1", String.format("X: %f, Y:     %f", gamepad1.left_stick_x, gamepad1.left_stick_y));
+        telemetry.addData("Gamepad 1", String.format("X: %f, Y: %f", gamepad1.left_stick_x, gamepad1.left_stick_y));
         telemetry.addData("Gamepad 2", String.format("X: %f, Y: %f", gamepad2.left_stick_x, gamepad2.left_stick_y));
         telemetry.addLine("================ Motors ================");
         telemetry.addData("Front Left", drivetrainController.frontLeftMotor.getPower());
@@ -30,12 +30,14 @@ public class MainOpMode_Linear extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive()) {
-            double forward = -gamepad1.left_stick_y;
-            double right = gamepad1.left_stick_x;
+            double horizontal = gamepad1.left_stick_x;
+            double vertical = -gamepad1.left_stick_y;
 
-            drivetrainController.setMotors(forward + right, forward - right, forward + right, forward - right);
+            double power = Math.hypot(vertical, horizontal);
+            double angle = Math.atan2(horizontal, vertical);
 
-            updateTelemetry();
+            drivetrainController.setMecanumDrive(angle,power);
+            drivetrainController.update();
         }
     }
 }
