@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.modules;
+package org.firstinspires.ftc.teamcode.components;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.math.Angle;
-import org.firstinspires.ftc.teamcode.modules.interfaces.IDrivetrainComponent;
+import org.firstinspires.ftc.teamcode.components.interfaces.IDrivetrainComponent;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;

@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.modules;
+package org.firstinspires.ftc.teamcode.components;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.modules.interfaces.*;
+import org.firstinspires.ftc.teamcode.components.interfaces.*;
 
 import java.util.HashMap;
 import java.util.Map;

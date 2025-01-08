@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.math.Angle;
-import org.firstinspires.ftc.teamcode.modules.RobotComponentStore;
-import org.firstinspires.ftc.teamcode.modules.interfaces.IDrivetrainComponent;
+import org.firstinspires.ftc.teamcode.components.RobotComponentStore;
+import org.firstinspires.ftc.teamcode.components.interfaces.IDrivetrainComponent;
 
 @TeleOp(name="Main OpMode", group="Linear OpMode")
 public class MainOpMode_Linear extends LinearOpMode {
