@@ -9,8 +9,10 @@ public class DrivetrainController {
     public final DcMotor backLeftMotor;
     public final DcMotor backRightMotor;
 
-    private double currentPower;
-    private double currentHeading;
+    private double movePower;
+    private double moveDirection;
+    private double lookDirection;
+    
     public DrivetrainController(HardwareMap hardwareMap){
         frontLeftMotor = hardwareMap.get(DcMotor.class, "front_left_drive");
         frontRightMotor = hardwareMap.get(DcMotor.class, "front_right_drive");
@@ -25,14 +27,19 @@ public class DrivetrainController {
     }
 
     public void setMecanumDrive(double heading, double power) {
-        currentPower = power;
-        currentHeading = heading;
+        movePower = power;
+        moveDirection = heading;
     }
 
     public void update() {
-        double leftDiagonal = Math.cos(currentHeading + Math.PI/4);
-        double rightDiagonal = Math.cos(currentHeading - Math.PI/4);
+        double leftDiagonal = movePower * Math.cos(moveDirection + Math.PI/4);
+        double rightDiagonal = movePower * Math.cos(moveDirection - Math.PI/4);
 
-        setMotors(leftDiagonal, rightDiagonal, leftDiagonal, rightDiagonal);
+        double frontLeft = leftDiagonal;
+        double frontRight = rightDiagonal;
+        double backLeft = rightDiagonal;
+        double backRight = leftDiagonal;
+
+        setMotors(frontLeft, frontRight, backLeft, backRight);
     }
 }
