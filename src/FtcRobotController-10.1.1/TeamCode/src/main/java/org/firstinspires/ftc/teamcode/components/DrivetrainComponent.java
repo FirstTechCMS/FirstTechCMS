@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+/**
+ * Implementation of the component that manages the drivetrain motors.
+ * */
 public class DrivetrainComponent implements IDrivetrainComponent {
     private final DcMotor frontLeftMotor;
     private final DcMotor frontRightMotor;
@@ -16,8 +19,8 @@ public class DrivetrainComponent implements IDrivetrainComponent {
     private double movePower;
     private Angle moveDirection;
     private Angle lookDirection;
-    
-    public DrivetrainComponent(HardwareMap hardwareMap){
+
+    public DrivetrainComponent(HardwareMap hardwareMap) {
         frontLeftMotor = hardwareMap.get(DcMotor.class, "front_left_motor");
         frontRightMotor = hardwareMap.get(DcMotor.class, "front_right_motor");
         backLeftMotor = hardwareMap.get(DcMotor.class, "back_left_motor");
@@ -28,7 +31,7 @@ public class DrivetrainComponent implements IDrivetrainComponent {
     }
 
     @Override
-    public void setMotors(double frontLeft, double frontRight, double backLeft, double backRight){
+    public void setMotors(double frontLeft, double frontRight, double backLeft, double backRight) {
         frontLeftMotor.setPower(frontLeft);
         frontRightMotor.setPower(frontRight);
         backLeftMotor.setPower(backLeft);
@@ -41,33 +44,13 @@ public class DrivetrainComponent implements IDrivetrainComponent {
         moveDirection = heading;
     }
 
-    @Override
-    public DcMotor getFrontLeftMotor() {
-        return null;
-    }
-
-    @Override
-    public DcMotor getFrontRightMotor() {
-        return null;
-    }
-
-    @Override
-    public DcMotor getBackLeftMotor() {
-        return null;
-    }
-
-    @Override
-    public DcMotor getBackRightMotor() {
-        return null;
-    }
-
     public void setLookDirection(Angle heading) {
 
     }
 
     public void update() {
-        double leftDiagonal = movePower * moveDirection.add(Math.PI/4).cos();
-        double rightDiagonal = movePower * moveDirection.subtract(Math.PI/4).cos();
+        double leftDiagonal = movePower * moveDirection.add(Math.PI / 4).cos();
+        double rightDiagonal = movePower * moveDirection.subtract(Math.PI / 4).cos();
 
         double frontLeft = leftDiagonal;
         double frontRight = rightDiagonal;

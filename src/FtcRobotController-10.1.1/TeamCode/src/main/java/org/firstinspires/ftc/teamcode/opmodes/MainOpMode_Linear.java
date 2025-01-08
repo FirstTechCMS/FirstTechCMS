@@ -3,11 +3,10 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.math.Angle;
 import org.firstinspires.ftc.teamcode.components.RobotComponentStore;
 import org.firstinspires.ftc.teamcode.components.interfaces.IDrivetrainComponent;
 
-@TeleOp(name="Main OpMode", group="Linear OpMode")
+@TeleOp(name = "Main OpMode", group = "Linear OpMode")
 public class MainOpMode_Linear extends LinearOpMode {
 
     @Override
@@ -15,20 +14,16 @@ public class MainOpMode_Linear extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        RobotComponentStore.registerTeleOpMode(hardwareMap);
+        RobotComponentStore.registerTeleOpComponents(this);
 
         waitForStart();
         while (opModeIsActive()) {
             IDrivetrainComponent drivetrain = RobotComponentStore.getComponent(IDrivetrainComponent.class);
 
-            double horizontal = gamepad1.left_stick_x;
-            double vertical = -gamepad1.left_stick_y;
-            double power = Math.hypot(horizontal, vertical);
-            Angle angle = Angle.fromAtan2(vertical, horizontal);
+            RobotComponentStore.update();
+            RobotComponentStore.updateTelemetry(telemetry);
 
-            drivetrain.setMecanumDrive(angle, power);
-            drivetrain.update();
-            drivetrain.updateTelemetry(telemetry);
+            telemetry.update();
         }
     }
 }
