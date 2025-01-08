@@ -1,2 +1,0 @@
-portrait.jpg filter=lfs diff=lfs merge=lfs -text
-landscape.jpg filter=lfs diff=lfs merge=lfs -text
