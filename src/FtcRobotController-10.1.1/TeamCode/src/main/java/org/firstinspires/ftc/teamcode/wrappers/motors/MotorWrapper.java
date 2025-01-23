@@ -4,26 +4,28 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.wrappers.motors.profiles.interfaces.IMotorProfile;
+import org.firstinspires.ftc.teamcode.wrappers.motors.profiles.LinearMotorProfile;
+import org.firstinspires.ftc.teamcode.wrappers.motors.profiles.IMotorProfile;
 
 public class MotorWrapper {
     private final DcMotor motor;
-    private double power;
-    private final DcMotorSimple.Direction direction;
     private final IMotorProfile profile;
 
+
+    public MotorWrapper(HardwareMap map, String motorName, DcMotorSimple.Direction direction) {
+        this(map, motorName, direction, new LinearMotorProfile());
+    }
+
     public MotorWrapper(HardwareMap map, String motorName, DcMotorSimple.Direction direction, IMotorProfile profile) {
-        this.motor = map.get(DcMotor.class, motorName);
-        this.profile = profile;
-        this.direction = direction;
+        motor = map.get(DcMotor.class, motorName);
         motor.setDirection(direction);
+        this.profile = profile;
     }
 
     public void setPower(double power) {
-        this.power = profile.applyProfile(power);
-        motor.setPower(power);
+        motor.setPower(profile.applyProfile(power));
     }
     public double getPower() {
-        return power;
+        return motor.getPower();
     }
 }

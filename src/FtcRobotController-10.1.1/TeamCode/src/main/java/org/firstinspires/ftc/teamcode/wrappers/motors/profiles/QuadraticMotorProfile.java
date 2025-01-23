@@ -1,17 +1,17 @@
 package org.firstinspires.ftc.teamcode.wrappers.motors.profiles;
 
-public class LinearMotorProfile implements IMotorProfile {
+public class QuadraticMotorProfile implements IMotorProfile {
     private final double powerMultiplier;
 
-    public LinearMotorProfile() {
+    public QuadraticMotorProfile() {
         this(1);
     }
 
-    public LinearMotorProfile(double powerMultiplier) {
+    public QuadraticMotorProfile(double powerMultiplier) {
         this.powerMultiplier = powerMultiplier;
     }
-
+    @Override
     public double applyProfile(double power) {
-        return power * powerMultiplier;
+        return Math.signum(power) * power * power * powerMultiplier;
     }
 }

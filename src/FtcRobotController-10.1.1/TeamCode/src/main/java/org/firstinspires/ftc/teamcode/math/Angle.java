@@ -14,7 +14,7 @@ public class Angle {
     }
 
     private double normalizeAngle(double angle) {
-        return (flooredModulo(angle + Math.PI, 2 * Math.PI)) - Math.PI;
+        return (angle + Math.PI %( 2 * Math.PI)) - Math.PI;
     }
 
     private Angle(double angle) {

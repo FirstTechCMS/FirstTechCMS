@@ -4,6 +4,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.components.interfaces.ISensorComponent;
 import org.firstinspires.ftc.teamcode.math.Angle;
 import org.firstinspires.ftc.teamcode.components.interfaces.IDrivetrainComponent;
+import org.firstinspires.ftc.teamcode.wrappers.motors.MotorWrapper;
+import org.firstinspires.ftc.teamcode.wrappers.motors.profiles.LinearMotorProfile;
+import org.firstinspires.ftc.teamcode.wrappers.motors.profiles.QuadraticMotorProfile;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -13,24 +16,20 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  * Implementation of the component that manages the drivetrain motors.
  */
 public class DrivetrainComponent implements IDrivetrainComponent {
-    private final DcMotor frontLeftMotor;
-    private final DcMotor frontRightMotor;
-    private final DcMotor backLeftMotor;
-    private final DcMotor backRightMotor;
+    private final MotorWrapper frontLeftMotor;
+    private final MotorWrapper frontRightMotor;
+    private final MotorWrapper backLeftMotor;
+    private final MotorWrapper backRightMotor;
     private double movePower;
     private Angle moveDirection;
     private Angle lookDirection;
     private final double turnMultiplier = 0.05;
     private final double frontMotorMultiplier = 2./3;
-
     public DrivetrainComponent(HardwareMap hardwareMap) {
-        frontLeftMotor = hardwareMap.get(DcMotor.class, "front_left_motor");
-        frontRightMotor = hardwareMap.get(DcMotor.class, "front_right_motor");
-        backLeftMotor = hardwareMap.get(DcMotor.class, "back_left_motor");
-        backRightMotor = hardwareMap.get(DcMotor.class, "back_right_motor");
-
-        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeftMotor = new MotorWrapper(hardwareMap, "front_left_motor", DcMotorSimple.Direction.REVERSE, new LinearMotorProfile(frontMotorMultiplier));
+        frontRightMotor = new MotorWrapper(hardwareMap, "front_right_motor", DcMotorSimple.Direction.FORWARD, new LinearMotorProfile(frontMotorMultiplier));
+        backLeftMotor = new MotorWrapper(hardwareMap, "back_left_motor", DcMotorSimple.Direction.REVERSE, new LinearMotorProfile());
+        backRightMotor = new MotorWrapper(hardwareMap, "back_right_motor", DcMotorSimple.Direction.FORWARD, new LinearMotorProfile());
 
         movePower = 0;
         moveDirection = Angle.fromRadians(0);
@@ -75,8 +74,8 @@ public class DrivetrainComponent implements IDrivetrainComponent {
         double downDiagonal = movePower * relativeMoveDirection.add(Math.PI / 4).cos();
         double upDiagonal = movePower * relativeMoveDirection.subtract(Math.PI / 4).cos();
 
-        double frontLeft = (upDiagonal + turnPower) * frontMotorMultiplier;
-        double frontRight = (downDiagonal - turnPower) * frontMotorMultiplier;
+        double frontLeft = upDiagonal + turnPower;
+        double frontRight = downDiagonal - turnPower;
         double backLeft = downDiagonal + turnPower;
         double backRight = upDiagonal - turnPower;
 
