@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.wrappers;
+package org.firstinspires.ftc.teamcode.wrappers.motors;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.profiles.interfaces.IMotorProfile;
+import org.firstinspires.ftc.teamcode.wrappers.motors.profiles.interfaces.IMotorProfile;
 
 public class MotorWrapper {
     private final DcMotor motor;
@@ -20,7 +20,7 @@ public class MotorWrapper {
     }
 
     public void setPower(double power) {
-        this.power = profile.getTranformedPower(power);
+        this.power = profile.applyProfile(power);
         motor.setPower(power);
     }
     public double getPower() {
