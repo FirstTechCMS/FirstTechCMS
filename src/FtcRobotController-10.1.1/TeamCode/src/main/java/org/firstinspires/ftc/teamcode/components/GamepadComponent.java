@@ -27,10 +27,13 @@ public class GamepadComponent implements ICommandComponent {
         double horizontalDrive = gamepad1.left_stick_x;
         double verticalDrive = -gamepad1.left_stick_y;
 
+        double angularVelocity = gamepad1.right_stick_x * 0.01;
+
         double power = Math.hypot(horizontalDrive, verticalDrive);
         Angle angle = Angle.fromAtan2(verticalDrive, horizontalDrive);
 
         drivetrainComponent.setMecanumDrive(angle, power);
+        drivetrainComponent.turnLookDirection(Angle.fromRadians(angularVelocity));
     }
 
     @Override

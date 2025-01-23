@@ -11,4 +11,8 @@ public interface IDrivetrainComponent extends IComponent {
     void setMotors(double frontLeft, double frontRight, double backLeft, double backRight);
 
     void setMecanumDrive(Angle heading, double power);
+
+    void setLookDirection(Angle amount);
+    void turnLookDirection(Angle amount);
+    Angle getLookDirection();
 }

@@ -4,13 +4,17 @@ import androidx.annotation.NonNull;
 
 /**
  * Represents an immutable angle in radians, from -&pi; to &pi;. </br>
- * Use <code>Angle.fromRadians(x)</code> or similar to initialise.
+ * Use <code>Angle.fromRadians(x)</code> or similar to instantiate.
  */
 public class Angle {
     final double internalAngle;
 
+    private double flooredModulo(double x, double y) {
+        return x - y * Math.floor(x / y);
+    }
+
     private double normalizeAngle(double angle) {
-        return ((angle + Math.PI) % (2 * Math.PI)) - Math.PI;
+        return (flooredModulo(angle + Math.PI, 2 * Math.PI)) - Math.PI;
     }
 
     private Angle(double angle) {
@@ -47,6 +51,16 @@ public class Angle {
 
     public double sin() {
         return Math.sin(internalAngle);
+    }
+
+    public double shortestTurnTo(Angle other) {
+        double difference = other.radians() - radians();
+        if (difference < -Math.PI)
+            return difference + Math.PI;
+        else if (difference > Math.PI)
+            return difference - Math.PI;
+        else
+            return difference;
     }
 
     public static Angle fromRadians(double radians) {

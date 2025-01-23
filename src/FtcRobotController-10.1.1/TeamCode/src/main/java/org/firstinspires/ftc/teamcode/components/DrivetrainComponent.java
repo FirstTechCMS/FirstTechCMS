@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.components;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.components.interfaces.ISensorComponent;
 import org.firstinspires.ftc.teamcode.math.Angle;
 import org.firstinspires.ftc.teamcode.components.interfaces.IDrivetrainComponent;
 
@@ -19,6 +20,7 @@ public class DrivetrainComponent implements IDrivetrainComponent {
     private double movePower;
     private Angle moveDirection;
     private Angle lookDirection;
+    private final double turnMultiplier = 0.05;
 
     public DrivetrainComponent(HardwareMap hardwareMap) {
         frontLeftMotor = hardwareMap.get(DcMotor.class, "front_left_motor");
@@ -28,6 +30,10 @@ public class DrivetrainComponent implements IDrivetrainComponent {
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        movePower = 0;
+        moveDirection = Angle.fromRadians(0);
+        lookDirection = Angle.fromRadians(0);
     }
 
     @Override
@@ -45,17 +51,33 @@ public class DrivetrainComponent implements IDrivetrainComponent {
     }
 
     public void setLookDirection(Angle heading) {
+        lookDirection = heading;
+    }
 
+    public void turnLookDirection(Angle amount) {
+        lookDirection = lookDirection.add(amount);
+    }
+
+    public Angle getLookDirection() {
+        return lookDirection;
     }
 
     public void update() {
-        double leftDiagonal = movePower * moveDirection.add(Math.PI / 4).cos();
-        double rightDiagonal = movePower * moveDirection.subtract(Math.PI / 4).cos();
+        ISensorComponent sensorComponent = RobotComponentStore.getComponent(ISensorComponent.class);
+        Angle currentHeading = sensorComponent.getHeading();
 
-        double frontLeft = leftDiagonal;
-        double frontRight = rightDiagonal;
-        double backLeft = rightDiagonal;
-        double backRight = leftDiagonal;
+        Angle relativeMoveDirection = moveDirection.subtract(currentHeading);
+        Angle relativeLookDirection = lookDirection.subtract(currentHeading);
+
+        double turnPower = relativeLookDirection.radians() * turnMultiplier;
+
+        double leftDiagonal = movePower * relativeMoveDirection.add(Math.PI / 4).cos();
+        double rightDiagonal = movePower * relativeMoveDirection.subtract(Math.PI / 4).cos();
+
+        double frontLeft = leftDiagonal + turnPower;
+        double frontRight = rightDiagonal - turnPower;
+        double backLeft = rightDiagonal + turnPower;
+        double backRight = leftDiagonal - turnPower;
 
         setMotors(frontLeft, frontRight, backLeft, backRight);
     }
@@ -70,5 +92,6 @@ public class DrivetrainComponent implements IDrivetrainComponent {
         telemetry.addData("Front Right Motor", frontRightMotor.getPower());
         telemetry.addData("Back Left Motor", backLeftMotor.getPower());
         telemetry.addData("Back Right Motor", backRightMotor.getPower());
+        telemetry.addData("Relative look dir", moveDirection.subtract(RobotComponentStore.getComponent(ISensorComponent.class).getHeading()));
     }
 }
