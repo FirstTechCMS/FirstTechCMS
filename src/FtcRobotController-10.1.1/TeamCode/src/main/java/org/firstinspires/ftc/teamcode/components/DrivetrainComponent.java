@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
  * Implementation of the component that manages the drivetrain motors.
- * */
+ */
 public class DrivetrainComponent implements IDrivetrainComponent {
     private final DcMotor frontLeftMotor;
     private final DcMotor frontRightMotor;
@@ -21,6 +21,7 @@ public class DrivetrainComponent implements IDrivetrainComponent {
     private Angle moveDirection;
     private Angle lookDirection;
     private final double turnMultiplier = 0.05;
+    private final double frontMotorMultiplier = 2./3;
 
     public DrivetrainComponent(HardwareMap hardwareMap) {
         frontLeftMotor = hardwareMap.get(DcMotor.class, "front_left_motor");
@@ -66,18 +67,18 @@ public class DrivetrainComponent implements IDrivetrainComponent {
         ISensorComponent sensorComponent = RobotComponentStore.getComponent(ISensorComponent.class);
         Angle currentHeading = sensorComponent.getHeading();
 
-        Angle relativeMoveDirection = moveDirection.subtract(currentHeading);
+        Angle relativeMoveDirection = moveDirection; //.subtract(currentHeading);
         Angle relativeLookDirection = lookDirection.subtract(currentHeading);
 
-        double turnPower = relativeLookDirection.radians() * turnMultiplier;
+        double turnPower = 0; //relativeLookDirection.radians() * turnMultiplier;
 
-        double leftDiagonal = movePower * relativeMoveDirection.add(Math.PI / 4).cos();
-        double rightDiagonal = movePower * relativeMoveDirection.subtract(Math.PI / 4).cos();
+        double downDiagonal = movePower * relativeMoveDirection.add(Math.PI / 4).cos();
+        double upDiagonal = movePower * relativeMoveDirection.subtract(Math.PI / 4).cos();
 
-        double frontLeft = leftDiagonal + turnPower;
-        double frontRight = rightDiagonal - turnPower;
-        double backLeft = rightDiagonal + turnPower;
-        double backRight = leftDiagonal - turnPower;
+        double frontLeft = (upDiagonal + turnPower) * frontMotorMultiplier;
+        double frontRight = (downDiagonal - turnPower) * frontMotorMultiplier;
+        double backLeft = downDiagonal + turnPower;
+        double backRight = upDiagonal - turnPower;
 
         setMotors(frontLeft, frontRight, backLeft, backRight);
     }
