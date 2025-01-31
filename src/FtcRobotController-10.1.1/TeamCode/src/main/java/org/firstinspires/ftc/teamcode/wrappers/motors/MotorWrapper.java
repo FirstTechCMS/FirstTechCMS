@@ -11,7 +11,9 @@ public class MotorWrapper {
     private final DcMotor motor;
     private final IMotorProfile profile;
 
-
+    public MotorWrapper(HardwareMap map, String motorName) {
+        this(map, motorName, DcMotorSimple.Direction.FORWARD, new LinearMotorProfile());
+    }
     public MotorWrapper(HardwareMap map, String motorName, DcMotorSimple.Direction direction) {
         this(map, motorName, direction, new LinearMotorProfile());
     }
