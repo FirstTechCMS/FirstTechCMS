@@ -1,0 +1,2 @@
+Drivetrain.drawio filter=lfs diff=lfs merge=lfs -text
+DrivetrainDesign.png filter=lfs diff=lfs merge=lfs -text
