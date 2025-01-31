@@ -42,11 +42,12 @@ public class RobotComponentStore {
 
     private static void registerBothModes(OpMode opMode) {
         HardwareMap hardwareMap = opMode.hardwareMap;
+
         DrivetrainComponent drivetrainComponent = new DrivetrainComponent(hardwareMap);
         registerComponent(IDrivetrainComponent.class, drivetrainComponent);
 
         ArmComponent armComponent = new ArmComponent(hardwareMap);
-        registerComponent(IDrivetrainComponent.class, armComponent);
+        registerComponent(IArmComponent.class, armComponent);
 
         SensorComponent sensorComponent = new SensorComponent(hardwareMap);
         registerComponent(ISensorComponent.class, sensorComponent);
