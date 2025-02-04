@@ -20,11 +20,12 @@ public class DrivetrainComponent implements IDrivetrainComponent {
     private final MotorWrapper frontRightMotor;
     private final MotorWrapper backLeftMotor;
     private final MotorWrapper backRightMotor;
+    private double turnPower;
     private double movePower;
     private Angle moveDirection;
-    private Angle lookDirection;
-    private final double turnMultiplier = 0.05;
+    private final double turnMultiplier = 1;
     private final double frontMotorMultiplier = 2./3;
+
     public DrivetrainComponent(HardwareMap hardwareMap) {
         frontLeftMotor = new MotorWrapper(hardwareMap, "front_left_motor", DcMotorSimple.Direction.REVERSE, new LinearMotorProfile(frontMotorMultiplier));
         frontRightMotor = new MotorWrapper(hardwareMap, "front_right_motor", DcMotorSimple.Direction.FORWARD, new LinearMotorProfile(frontMotorMultiplier));
@@ -32,8 +33,18 @@ public class DrivetrainComponent implements IDrivetrainComponent {
         backRightMotor = new MotorWrapper(hardwareMap, "back_right_motor", DcMotorSimple.Direction.FORWARD, new LinearMotorProfile());
 
         movePower = 0;
+        turnPower = 0;
         moveDirection = Angle.fromRadians(0);
-        lookDirection = Angle.fromRadians(0);
+    }
+
+    @Override
+    public void setTurnPower(double power) {
+        turnPower = power;
+    }
+
+    @Override
+    public double getTurnPower() {
+        return turnPower;
     }
 
     @Override
@@ -50,34 +61,17 @@ public class DrivetrainComponent implements IDrivetrainComponent {
         moveDirection = heading;
     }
 
-    public void setLookDirection(Angle heading) {
-        lookDirection = heading;
-    }
-
-    public void turnLookDirection(Angle amount) {
-        lookDirection = lookDirection.add(amount);
-    }
-
-    public Angle getLookDirection() {
-        return lookDirection;
-    }
-
+    @Override
     public void update() {
         ISensorComponent sensorComponent = RobotComponentStore.getComponent(ISensorComponent.class);
-        Angle currentHeading = sensorComponent.getHeading();
 
-        Angle relativeMoveDirection = moveDirection; //.subtract(currentHeading);
-        Angle relativeLookDirection = lookDirection.subtract(currentHeading);
+        double downDiagonal = movePower * moveDirection.add(Math.PI / 4).cos();
+        double upDiagonal = movePower * moveDirection.subtract(Math.PI / 4).cos();
 
-        double turnPower = 0; //relativeLookDirection.radians() * turnMultiplier;
-
-        double downDiagonal = movePower * relativeMoveDirection.add(Math.PI / 4).cos();
-        double upDiagonal = movePower * relativeMoveDirection.subtract(Math.PI / 4).cos();
-
-        double frontLeft = upDiagonal + turnPower;
-        double frontRight = downDiagonal - turnPower;
-        double backLeft = downDiagonal + turnPower;
-        double backRight = upDiagonal - turnPower;
+        double frontLeft = upDiagonal + turnPower * turnMultiplier;
+        double frontRight = downDiagonal - turnPower * turnMultiplier;
+        double backLeft = downDiagonal + turnPower * turnMultiplier;
+        double backRight = upDiagonal - turnPower * turnMultiplier;
 
         setMotors(frontLeft, frontRight, backLeft, backRight);
     }
@@ -87,11 +81,10 @@ public class DrivetrainComponent implements IDrivetrainComponent {
         telemetry.addLine("======== Drivetrain ========");
         telemetry.addData("Move Power", movePower);
         telemetry.addData("Move Direction", moveDirection);
-        telemetry.addData("Look Direction", lookDirection);
         telemetry.addData("Front Left Motor", frontLeftMotor.getPower());
         telemetry.addData("Front Right Motor", frontRightMotor.getPower());
         telemetry.addData("Back Left Motor", backLeftMotor.getPower());
         telemetry.addData("Back Right Motor", backRightMotor.getPower());
-        telemetry.addData("Relative look dir", moveDirection.subtract(RobotComponentStore.getComponent(ISensorComponent.class).getHeading()));
+        telemetry.addData("Look Direction", Math.round(moveDirection.radians()*180/Math.PI));
     }
 }

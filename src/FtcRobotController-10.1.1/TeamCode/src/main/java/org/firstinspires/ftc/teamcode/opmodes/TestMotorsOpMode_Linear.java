@@ -37,6 +37,7 @@ public class TestMotorsOpMode_Linear extends LinearOpMode {
 
             motors[activeIndex].setPower(gamepad1.left_stick_y);
             telemetry.addData("Active Motor", activeIndex);
+            telemetry.addData("Active Motor", motors[activeIndex].getDeviceName());
             telemetry.addData("Power", gamepad1.left_stick_y);
             telemetry.update();
         }

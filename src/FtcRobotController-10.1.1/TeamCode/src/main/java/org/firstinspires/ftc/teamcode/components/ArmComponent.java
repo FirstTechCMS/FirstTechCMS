@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.components;
 
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -11,7 +12,7 @@ public class ArmComponent implements IArmComponent {
     private MotorWrapper rightArmMotor;
     public ArmComponent(HardwareMap hardwareMap) {
         leftArmMotor = new MotorWrapper(hardwareMap, "left_arm_motor");
-        rightArmMotor = new MotorWrapper(hardwareMap, "right_arm_motor");
+        rightArmMotor = new MotorWrapper(hardwareMap, "right_arm_motor", DcMotorSimple.Direction.REVERSE);
     }
 
     public void setPower(double power) {
