@@ -1,28 +1,35 @@
 package org.firstinspires.ftc.teamcode.components;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.components.interfaces.IArmComponent;
+import org.firstinspires.ftc.teamcode.math.Angle;
 import org.firstinspires.ftc.teamcode.wrappers.motors.MotorWrapper;
 
 public class ArmComponent implements IArmComponent {
-    private MotorWrapper leftArmMotor;
-    private MotorWrapper rightArmMotor;
+    private DcMotor leftArmMotor;
+    private DcMotor rightArmMotor;
+
+    private Angle targetRotation;
+    private boolean stabiliseRotation;
     public ArmComponent(HardwareMap hardwareMap) {
-        leftArmMotor = new MotorWrapper(hardwareMap, "left_arm_motor");
-        rightArmMotor = new MotorWrapper(hardwareMap, "right_arm_motor", DcMotorSimple.Direction.REVERSE);
+        leftArmMotor = hardwareMap.get(DcMotor.class, "left_arm_motor");
+        rightArmMotor = hardwareMap.get(DcMotor.class, "right_arm_motor");
+
+        leftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    public void setPower(double power) {
-        leftArmMotor.setPower(power);
-        rightArmMotor.setPower(power);
+    public void setAngle(Angle angle){
+        //
     }
 
     @Override
     public void update() {
-
+        //
     }
 
     @Override

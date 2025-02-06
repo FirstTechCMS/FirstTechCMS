@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.components.interfaces.IArmComponent;
 import org.firstinspires.ftc.teamcode.components.interfaces.ICommandComponent;
 import org.firstinspires.ftc.teamcode.components.interfaces.IDrivetrainComponent;
 import org.firstinspires.ftc.teamcode.math.Angle;
@@ -34,6 +35,8 @@ public class GamepadComponent implements ICommandComponent {
 
         drivetrainComponent.setMecanumDrive(angle, power);
         drivetrainComponent.setTurnPower(angularVelocity);
+
+        IArmComponent armComponent = RobotComponentStore.getComponent(IArmComponent.class);
     }
 
     @Override
