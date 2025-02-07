@@ -37,6 +37,18 @@ public class Angle {
         return new Angle(internalAngle - other);
     }
 
+    public Angle max(Angle other) {
+        return new Angle(Math.max(internalAngle, other.radians()));
+    }
+
+    public Angle min(Angle other) {
+        return new Angle(Math.min(internalAngle, other.radians()));
+    }
+
+    public Angle clamp(Angle min, Angle max) {
+        return new Angle(Math.min(Math.max(internalAngle, min.radians()), max.radians()));
+    }
+
     public double radians() {
         return internalAngle;
     }

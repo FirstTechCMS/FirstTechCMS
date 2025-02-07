@@ -3,30 +3,34 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp(name = "Test Arm OpMode", group = "Linear OpMode")
 public class TestArmOpMode_Linear extends LinearOpMode {
+
+    final int COUNTS_PER_WHEEL_REV = 288;
+    final float MAX_RPS = 0.5f;
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        DcMotor leftMotor = hardwareMap.get(DcMotor.class, "left_arm_motor");
-        DcMotor rightMotor = hardwareMap.get(DcMotor.class, "right_arm_motor");
+        DcMotorEx leftMotor = hardwareMap.get(DcMotorEx .class, "left_arm_motor");
+        DcMotorEx  rightMotor = hardwareMap.get(DcMotorEx .class, "right_arm_motor");
+
+        boolean buttonHandled = false;
+        boolean otherSelected = false;
+        DcMotorEx activeMotor = leftMotor;
+
+        waitForStart();
+        leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         leftMotor.setTargetPosition(0);
         rightMotor.setTargetPosition(0);
         leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        boolean buttonHandled = false;
-        boolean otherSelected = false;
-        DcMotor activeMotor = leftMotor;
-
-        final int multiplier = 1440;
-
-        waitForStart();
         while (opModeIsActive()) {
             if (gamepad1.a && !buttonHandled) {
                 otherSelected = !otherSelected;
@@ -37,7 +41,8 @@ public class TestArmOpMode_Linear extends LinearOpMode {
             }
 
             if (gamepad1.b) {
-                activeMotor.setTargetPosition((int)(gamepad1.left_stick_y * multiplier));
+                activeMotor.setTargetPosition((int)(gamepad1.left_stick_y * COUNTS_PER_WHEEL_REV));
+                activeMotor.setVelocity(MAX_RPS * COUNTS_PER_WHEEL_REV);
             }
 
             telemetry.addData("targetPosition", activeMotor.getTargetPosition());
@@ -46,3 +51,4 @@ public class TestArmOpMode_Linear extends LinearOpMode {
         }
     }
 }
+

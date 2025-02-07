@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.math.Angle;
 public class GamepadComponent implements ICommandComponent {
     private final Gamepad gamepad1;
     private final Gamepad gamepad2;
+    private final float ARM_MULTIPLIER = 0.05f;
 
     public GamepadComponent(Gamepad gamepad1, Gamepad gamepad2) {
         this.gamepad1 = gamepad1;
@@ -36,7 +37,9 @@ public class GamepadComponent implements ICommandComponent {
         drivetrainComponent.setMecanumDrive(angle, power);
         drivetrainComponent.setTurnPower(angularVelocity);
 
+        double armPower = -gamepad2.left_stick_y * ARM_MULTIPLIER;
         IArmComponent armComponent = RobotComponentStore.getComponent(IArmComponent.class);
+        armComponent.shiftAngle(Angle.fromRadians(armPower));
     }
 
     @Override
