@@ -1,6 +1,7 @@
 # Claw Design Process
+
 ## Objectives
-The claw is a critical component of our FTC robot, as it directly enables us to score points. Since its sole function is to pick up and transport samples, we were able to design it with a singular focus on efficiency and precision. Every aspect of the claw was carefully optimized to ensure it performs this task flawlessly.
+The claw is a critical component of our FTC robot, as it directly enables us to score points. Since its sole function is to pick up and transport samples, we were able to design it with a singular focus on efficiency and precision. Every aspect of the claw was carefully optimised to ensure it performs this task flawlessly.
 
 ## Grabber Shape
 Several initial concepts were considered for the grabber’s shape, including pairs of:
@@ -9,7 +10,7 @@ Several initial concepts were considered for the grabber’s shape, including pa
 - Cones
   - This means that however the claw is angled, it can pick up the sample, however will mean that the sample is always dangling downwards which means it will be extremely difficult to precisely move the sample to where we want it to go and how we want it to go.
 - 3D frustums
-  - This combines the angular freedom of the cone with the fixed rotation of the triangular prism, meaning that we can hold the claw vertically or horizontally and also pick it up from any angle (the edges will snap the sample to either rotation.)
+  - This combines the angular freedom of the cone with the fixed rotation of the triangular prism, meaning that we can hold the claw vertically or horizontally and also pick it up from any angle (the edges will snap the sample to either rotation).
 After evaluating these options, the 3D frustums were chosen as the optimal design. This choice allows the sample to snap into position while enabling gripping in two orientations. The cone permitted too much free rotation, reducing control, while the triangular prism could only pick up objects in a single orientation.
 
 ## Opening and Closing Mechanism
@@ -25,7 +26,7 @@ Initial Sketches of the Final Claw Design
 We used [Onshape](https://www.onshape.com/) to make a 3D model of the initial 2D design, enabling us to visualise how the claw would fit into the rest of the robot.
 ![image](https://github.com/user-attachments/assets/14114985-957c-4e20-9a1f-bc218c50b09f)
 
-The holes in the circles are long to allow minute adjustments to ensure the gear teeth mesh properly and don’t slip. We ensured ample space behind the frustrums (between the curved sections) to allow the sample to exist without interference from the claw.
+The holes in the circles are long to allow minute adjustments to ensure the gear teeth mesh properly and don’t slip. We ensured ample space behind the frustums (between the curved sections) to allow the sample to exist without interference from the claw.
 ## First printed iteration
 ![pro-Xeq14lxd](https://github.com/user-attachments/assets/56ff0597-1245-4ec7-8816-fa9caf364e59)
 ![pro-erTJIzO6](https://github.com/user-attachments/assets/31cc526d-739b-4de6-92d9-c139b179cc69)
