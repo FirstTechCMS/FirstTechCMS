@@ -5,8 +5,11 @@ The claw is a critical component of our FTC robot, as it directly enables us to 
 ## Grabber Shape
 Several initial concepts were considered for the grabber’s shape, including pairs of:
 - Triangular prisms
-- 3D frustums
+  - This is very good for having perfect grip of the robot, however we quickly discounted this as it will only allow for a single orientation of the robot and will be far too big.
 - Cones
+  - This means that however the claw is angled, it can pick up the sample, however will mean that the sample is always dangling downwards which means it will be extremely difficult to precisely move the sample to where we want it to go and how we want it to go.
+- 3D frustums
+  - This combines the angular freedom of the cone with the fixed rotation of the triangular prism, meaning that we can hold the claw vertically or horizontally and also pick it up from any angle (the edges will snap the sample to either rotation.)
 After evaluating these options, the 3D frustums were chosen as the optimal design. This choice allows the sample to snap into position while enabling gripping in two orientations. The cone permitted too much free rotation, reducing control, while the triangular prism could only pick up objects in a single orientation.
 
 ## Opening and Closing Mechanism
