@@ -16,11 +16,11 @@ public class ArmComponent implements IArmComponent {
     private DcMotorEx rightArmMotor;
     private Angle targetAngle;
     private static final int COUNTS_PER_WHEEL_REV = 288;
-    private static final float MAX_RPS = 1f;
+    private static final float MAX_RPS = 0.2f;
     private static final Angle MIN_ANGLE = Angle.fromRadians(0);
     private static final Angle MAX_ANGLE = Angle.fromRadians(Math.PI * 0.75);
     private static final PIDFCoefficients pidfCoefficients = new PIDFCoefficients(
-            30, 1.5, 0, 10);
+            30, 6, 0, 0);
 
     public ArmComponent(HardwareMap hardwareMap) {
         leftArmMotor = hardwareMap.get(DcMotorEx.class, "left_arm_motor");
