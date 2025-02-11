@@ -79,6 +79,10 @@ public class Angle {
         return new Angle(radians);
     }
 
+    public static Angle fromTurns(double factor) {
+        return new Angle(factor * Math.PI * 2);
+    }
+
     public static Angle fromDegrees(double degrees) {
         return new Angle(degrees / 180 * Math.PI);
     }

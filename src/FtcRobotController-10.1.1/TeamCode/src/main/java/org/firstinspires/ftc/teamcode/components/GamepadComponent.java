@@ -1,35 +1,39 @@
 package org.firstinspires.ftc.teamcode.components;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.components.interfaces.IArmComponent;
+import org.firstinspires.ftc.teamcode.components.interfaces.IClawComponent;
 import org.firstinspires.ftc.teamcode.components.interfaces.ICommandComponent;
 import org.firstinspires.ftc.teamcode.components.interfaces.IDrivetrainComponent;
+import org.firstinspires.ftc.teamcode.gamepad.InputHandler;
 import org.firstinspires.ftc.teamcode.math.Angle;
 
 /**
  * Implementation of the component that responds to gamepad inputs and controls other components.
  * */
 public class GamepadComponent implements ICommandComponent {
-    private final Gamepad gamepad1;
-    private final Gamepad gamepad2;
-    private final float ARM_MULTIPLIER = 0.05f;
+    private final InputHandler driverInput;
+    private final InputHandler armClawInput;
+    private static final float ARM_MULTIPLIER = 0.05f;
 
     public GamepadComponent(Gamepad gamepad1, Gamepad gamepad2) {
-        this.gamepad1 = gamepad1;
-        this.gamepad2 = gamepad2;
+        this.driverInput = new InputHandler(gamepad1);
+        this.armClawInput = new InputHandler(gamepad2);
     }
 
     @Override
     public void update() {
+        driverInput.Update();
+        armClawInput.Update();
+
         IDrivetrainComponent drivetrainComponent = RobotComponentStore.getComponent(IDrivetrainComponent.class);
 
-        double horizontalDrive = gamepad1.left_stick_x;
-        double verticalDrive = -gamepad1.left_stick_y;
+        double horizontalDrive = driverInput.GetLeftStickX();
+        double verticalDrive = -driverInput.GetLeftStickY();
 
-        double angularVelocity = gamepad1.right_stick_x;
+        double angularVelocity = driverInput.GetRightStickX();
 
         double power = Math.hypot(horizontalDrive, verticalDrive);
         Angle angle = Angle.fromAtan2(verticalDrive, horizontalDrive);
@@ -37,17 +41,22 @@ public class GamepadComponent implements ICommandComponent {
         drivetrainComponent.setMecanumDrive(angle, power);
         drivetrainComponent.setTurnPower(angularVelocity);
 
-        double armPower = -gamepad2.left_stick_y * ARM_MULTIPLIER;
+        double armPower = -armClawInput.GetLeftStickY() * ARM_MULTIPLIER;
         IArmComponent armComponent = RobotComponentStore.getComponent(IArmComponent.class);
         armComponent.shiftAngle(Angle.fromRadians(armPower));
+
+        if (armClawInput.GetKeyDown("a")){
+            IClawComponent clawComponent = RobotComponentStore.getComponent(IClawComponent.class);
+            clawComponent.toggle();
+        }
     }
 
     @Override
     public void updateTelemetry(Telemetry telemetry) {
         telemetry.addLine("======== Gamepad ========");
-        telemetry.addData("1_Left", "X: %.2f, Y: %.2f", gamepad1.left_stick_x, -gamepad1.left_stick_y);
-        telemetry.addData("1_Right", "X: %.2f, Y: %.2f", gamepad1.right_stick_x, -gamepad1.right_stick_y);
-        telemetry.addData("2_Left", "X: %.2f, Y: %.2f", gamepad2.left_stick_x, -gamepad2.left_stick_y);
-        telemetry.addData("2_Right", "X: %.2f, Y: %.2f", gamepad1.right_stick_x, -gamepad1.right_stick_y);
+        telemetry.addData("1_Left", "X: %.2f, Y: %.2f", driverInput.GetLeftStickX(), -driverInput.GetLeftStickY());
+        telemetry.addData("1_Right", "X: %.2f, Y: %.2f", driverInput.GetRightStickX(), -driverInput.GetRightStickY());
+        telemetry.addData("2_Left", "X: %.2f, Y: %.2f", armClawInput.GetLeftStickX(), -armClawInput.GetLeftStickY());
+        telemetry.addData("2_Right", "X: %.2f, Y: %.2f", armClawInput.GetRightStickX(), -armClawInput.GetRightStickY());
     }
 }

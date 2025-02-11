@@ -13,8 +13,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.Quaternion;
 import org.firstinspires.ftc.teamcode.components.interfaces.ISensorComponent;
 import org.firstinspires.ftc.teamcode.math.Angle;
 
+/** Implementation of the component that manages sensors. */
 public class SensorComponent implements ISensorComponent {
-    private BHI260IMU imu;
+    private final BHI260IMU imu;
 
     public SensorComponent(HardwareMap hardwareMap) {
         imu = hardwareMap.get(BHI260IMU.class, "imu");

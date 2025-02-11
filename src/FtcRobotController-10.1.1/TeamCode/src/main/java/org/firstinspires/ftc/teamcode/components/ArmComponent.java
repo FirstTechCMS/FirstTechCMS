@@ -11,9 +11,10 @@ import org.firstinspires.ftc.teamcode.components.interfaces.IArmComponent;
 import org.firstinspires.ftc.teamcode.math.Angle;
 import org.firstinspires.ftc.teamcode.wrappers.motors.MotorWrapper;
 
+/** Implementation of the component that manage the arm motors. */
 public class ArmComponent implements IArmComponent {
-    private DcMotorEx leftArmMotor;
-    private DcMotorEx rightArmMotor;
+    private final DcMotorEx leftArmMotor;
+    private final DcMotorEx rightArmMotor;
     private Angle targetAngle;
     private static final int COUNTS_PER_WHEEL_REV = 288;
     private static final float MAX_RPS = 0.2f;

@@ -51,6 +51,9 @@ public class RobotComponentStore {
 
         SensorComponent sensorComponent = new SensorComponent(hardwareMap);
         registerComponent(ISensorComponent.class, sensorComponent);
+
+        ClawComponent clawComponent = new ClawComponent(hardwareMap);
+        registerComponent(IClawComponent.class, clawComponent);
     }
 
     /**
