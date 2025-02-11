@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-@TeleOp(name = "Test Arm OpMode", group = "Linear OpMode")
+@TeleOp(name = "Test Arm OpMode", group = "Test")
 public class TestArmOpMode_Linear extends LinearOpMode {
 
     final int COUNTS_PER_WHEEL_REV = 288;
