@@ -21,14 +21,14 @@ public class ClawComponent implements IClawComponent {
 
     @Override
     public void open() {
-        leftServo.setPosition(openPosition);
+        leftServo.setPosition(closedPosition);
         rightServo.setPosition(openPosition);
         isOpen = true;
     }
 
     @Override
     public void close() {
-        leftServo.setPosition(closedPosition);
+        leftServo.setPosition(openPosition);
         rightServo.setPosition(closedPosition);
         isOpen = false;
     }
