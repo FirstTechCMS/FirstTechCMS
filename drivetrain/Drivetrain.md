@@ -66,7 +66,7 @@ A revision of the internal chain drive design was made, by making the enclosed c
 
 This design was, to our knowledge, going to be the final design for use on the finished robot. As such, more care was taken in the design process, to ensure the design was well-specified and easy to build.
 
-![[drivetrain-design.png]]
+![image](https://github.com/FirstTechCMS/FirstTechCMS/blob/main/drivetrain/DrivetrainDesign.png)
 
 The two rear wheels would be directly driven by two motors at the back. Then, in the middle would be two 248mm pieces of extrusion frame, connected with 90 degree brackets. The two other motors would sit between these and the control and expansion hubs would sit on top on either side. The middle motors were connected to 15 tooth sprockets, to which the chain drives would attach, and 10 tooth sprockets at the front connected to the front wheels. The remaining 420mm frames would then enclose the whole robot, interfacing with the axles via through-bore bearings to provide support to the wheels. This also had the added benefit of protecting the wheels from obstacles and other robots.
 
