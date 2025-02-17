@@ -10,9 +10,9 @@ import org.firstinspires.ftc.teamcode.components.interfaces.IClawComponent;
 public class ClawComponent implements IClawComponent {
     private final Servo leftServo;
     private final Servo rightServo;
+    private static final double servoPositionA = 1;
+    private static final double servoPositionB = 0;
     private boolean isOpen;
-    private static final double openPosition = 1;
-    private static final double closedPosition = 0;
 
     public ClawComponent(HardwareMap hardwareMap) {
         leftServo = hardwareMap.get(Servo.class, "left_claw_servo");
@@ -21,25 +21,25 @@ public class ClawComponent implements IClawComponent {
 
     @Override
     public void open() {
-        leftServo.setPosition(closedPosition);
-        rightServo.setPosition(openPosition);
+        leftServo.setPosition(servoPositionB);
+        rightServo.setPosition(servoPositionA);
         isOpen = true;
     }
 
     @Override
     public void close() {
-        leftServo.setPosition(openPosition);
-        rightServo.setPosition(closedPosition);
+        leftServo.setPosition(servoPositionA);
+        rightServo.setPosition(servoPositionB);
         isOpen = false;
     }
+
+    @Override
     public boolean getIsOpen() {
         return isOpen;
     }
 
     @Override
-    public void update() {
-
-    }
+    public void update() { }
 
     @Override
     public void toggle() {
