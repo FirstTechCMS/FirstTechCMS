@@ -31,12 +31,6 @@ Abiding by the constraints of the parts we had, it would be infeasible to rotate
 We shared our concerns at the London scrimmage, where the organisers kindly provided us with a set of off-the-shelf mecanum wheels, and lent us an expansion hub to allow for 4-wheel drive and use other motors elsewhere on the robot. These wheels had high traction and very low rolling resistance, perfect for our drivetrain needs!
 
 On the journey back to Cambridge however, one of the wheels was damaged. The C-ring fell out and got lost, causing one of the axles to become loose and enabling the roller to slide off. We considered a number of DIY fixes including 3D printing, soldering and gluing, but in the end we were able to find the correct dimensions to order a replacement C-ring and fix the wheel without risk of damaging it further.
-
-
-<!-- - **Concept Sketches and Prototypes**
-    - Were there any early sketches or CAD models?
-    - What design inspirations did you reference? -->
-
 ## **3. Iterative Prototyping**
 
 - **Component Selection**
@@ -46,7 +40,7 @@ On the journey back to Cambridge however, one of the wheels was damaged. The C-r
 
 After sourcing wheels and motors, we opted for an iterative, agile design process of building prototypes, finding flaws and redesigning them. The first of these was a simple rectangular frame made of two 420mm extrusion frames along the sides, and two 248mm frames at the front and back. The purpose of this prototype was to get familiar with the kit and work out approximate component sizes. 
 
-We found that we had underestimated the size of the motors and it would be difficult to fit them both in. With two motors at the front and at the back, there was very little space for anything else except for in the middle, which would be limiting to the range of the claw. We decided that we would need to make free space at the front, and concentrate the motors at the back or to the sides.
+We found that we had underestimated the size of the powerful HD HEX motors and it would be difficult to fit them both in. With two motors at the front and at the back, there was very little space for anything else except for in the middle, which would be limiting to the range of the claw. We decided that we would need to make free space at the front, and concentrate the motors at the back or to the sides.
 
 We could think of two possible solutions to this: chain drives or bevel gears. Chain drives would allow us to place motors at the rear and drive wheels at the front remotely, while bevel gears could convert the rotation of the motors around a corner, meaning the motors could be placed longitudinally.
 
@@ -64,38 +58,38 @@ A revision of the internal chain drive design was made, by making the enclosed c
 
 ## **4. Final Design**
 
-This design was, to our knowledge, going to be the final design for use on the finished robot. As such, more care was taken in the design process, to ensure the design was well-specified and easy to build.
+This design was, to our knowledge, going to be the final drivetrain design for use on the finished robot. As such, more care was taken in the design process, to ensure the design was well-specified and easy to build.
 
-![[drivetrain-design.png]]
+![[Drivetrain-Page-1.drawio.png]]
 
 The two rear wheels would be directly driven by two motors at the back. Then, in the middle would be two 248mm pieces of extrusion frame, connected with 90 degree brackets. The two other motors would sit between these and the control and expansion hubs would sit on top on either side. The middle motors were connected to 15 tooth sprockets, to which the chain drives would attach, and 10 tooth sprockets at the front connected to the front wheels. The remaining 420mm frames would then enclose the whole robot, interfacing with the axles via through-bore bearings to provide support to the wheels. This also had the added benefit of protecting the wheels from obstacles and other robots.
 
-Since the cavity was now larger than the standard size, we would have to make custom end-caps to connect the outer frames to the robot core. The frames would also be held on by the control hubs.
+Since the cavity was now larger than the standard size, we would have to make custom end-caps to connect the outer frames to the robot core. The frames would also be held on by the control hubs providing support from above.
 
-
-<!-- - **Drive Control System**
-    - What control system components (e.g., motor controllers, sensors) were chosen?
-    - How will you program the drivetrain for precise control?
-
-
-- **Key Features of the Drivetrain**
-    - Highlight the most important features and their benefits.
-    - Why was this design chosen over alternatives?
-- **CAD Models and Schematics**
-    - Include any CAD diagrams or schematics you created.
-- **Compatibility with the Rest of the Robot**
-    - How does the drivetrain integrate with other subsystems? -->
-
-## **5. Challenges and Further Improvements**
+## **5. Challenges**
 
 One of the major issues we ran into while building this frame was tensioning the chain drive correctly. Our first configuration was far too tight, exerting a large shear stress on the robot. We tested multiple chain drive configurations and lengths, but all of them suffered from the chain being extremely loose. This caused a large amount of mechanical slack, allowing the wheels to turn a significant amount while the motors were stationary. This made the robot hard to control as we could not precisely control the rotation of the wheels, hindering the efficacy of the mecanum wheel drivetrain.
 
 To solve this problem as best as we could, another sprocket was placed in the middle of the chain drive to increase the length of the chain and reduce slack. This was not 100% effective of course, but it allowed the robot to be somewhat more responsive. It did not seem that we had the correct parts to tension the chain any better.
 
+After some testing however, it became apparent that the mechanical freedom provided by the chain was not significantly reduced by the additional sprocket, while the friction of the system was increased. We decided to remove the idler sprocket and instead attempt to correct for the flaw in software. While unsatisfactory, it did not seem that we had any other option.
 
-<!-- - **Skills and Knowledge Gained**
-    - What new skills did the team develop?
-    - What would you do differently next time?
-- **Potential Upgrades**
-    - What areas of the drivetrain could be improved in the future?
-    - Are there technologies or techniques you’d like to explore? -->
+Another issue that we faced after assembling the drivetrain was cable management. Each motor had two cables running to it (for power and control), in addition to cables connecting the hubs and the battery pack and later controlling the motors on the arm.
+
+All of these cables were very disorganised and many of them were hanging out of the robot, which was made worse by the fact that the hubs had to be placed with the motor ports on the outside in order to connect the hubs with a short cable on the inside. If another robot were to snag them they could damage our robot or give us a penalty for interfering with them.
+
+We first tried threading the motor cables underneath the deck supporting the power pack, as this routed them inwards and away from the edges. We were reluctant to bend them too much, especially at the ends, but this was the only way to redirect them without making the robot wider, which was already a tight constraint. After this we used 3D printed cable clips to keep them in place.
+
+Initially this seemed to work, but once the arm was attached, the cables kept interfering with its path and getting tangled. We would need to keep the cables away from the outside of the robot but also away from the inside cavity too.
+
+Our solution to this problem was to shift the battery deck inwards by two holes. This made it slightly less stable, but it allowed the cables to come straight up past it, after which we could reroute them along the sides of the robot instead.
+
+## **6. Further Improvements**
+
+As the deadline drew closer, it seemed unlikely that we could deliver the whole planned robot in time for the competition. We had joined late, only starting work in November, and our competition would be on the earlier side at the end of February. As such, the plan would have to be consolidated to ensure we had a working robot in time.
+
+The newly appointed strategy team decided that attempting to climb the structure at the end of the game would be too difficult to perfect, and the risk of destroying the whole robot would be too high - instead we would focus on getting samples into the low basket and converting them to specimens. With this decision made, the robot lift had now become redundant since the robot did not have any need to raise itself up.
+
+This was a problem for the drivetrain. It had been designed with a large space for the lift to fit into, but this space was now no longer needed. The build had been completed now and it was too late for a redesign this late into the project.
+
+Furthermore, it was discovered that the game field had a barrier on the floor, which we were not aware of until this point. The barrier was too high for our robot to clear, and the arm would have trouble trying to reach over it. We considered adding a second joint to the arm, but this would be difficult to implement. Either way, there was little that could be done to the drivetrain at this point.
