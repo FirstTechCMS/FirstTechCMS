@@ -21,7 +21,7 @@ public class DrivetrainComponent implements IDrivetrainComponent {
     private double turnPower;
     private double movePower;
     private Angle moveDirection;
-    private static final double TURN_MULTIPLIER = 1;
+    private static final double TURN_MULTIPLIER = 1.0;
     private static final double FRONT_MOTOR_MULTIPLIER = 2. / 3;
 
     public DrivetrainComponent(HardwareMap hardwareMap) {
@@ -66,10 +66,12 @@ public class DrivetrainComponent implements IDrivetrainComponent {
         double downDiagonal = movePower * moveDirection.add(Math.PI / 4).cos();
         double upDiagonal = movePower * moveDirection.subtract(Math.PI / 4).cos();
 
-        double frontLeft = upDiagonal + turnPower * TURN_MULTIPLIER;
-        double frontRight = downDiagonal - turnPower * TURN_MULTIPLIER;
-        double backLeft = downDiagonal + turnPower * TURN_MULTIPLIER;
-        double backRight = upDiagonal - turnPower * TURN_MULTIPLIER;
+        double modifiedTurnPower = turnPower * turnPower * Math.signum(turnPower);
+
+        double frontLeft = upDiagonal + modifiedTurnPower * TURN_MULTIPLIER;
+        double frontRight = downDiagonal - modifiedTurnPower * TURN_MULTIPLIER;
+        double backLeft = downDiagonal + modifiedTurnPower * TURN_MULTIPLIER;
+        double backRight = upDiagonal - modifiedTurnPower * TURN_MULTIPLIER;
 
         setMotors(frontLeft, frontRight, backLeft, backRight);
     }

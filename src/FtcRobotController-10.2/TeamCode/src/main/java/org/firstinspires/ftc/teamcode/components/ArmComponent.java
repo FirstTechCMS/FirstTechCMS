@@ -18,7 +18,7 @@ public class ArmComponent implements IArmComponent {
     private Angle targetAngle;
     private static final int COUNTS_PER_WHEEL_REV = 288;
     private static final float MAX_RPS = 0.2f;
-    private static final Angle MIN_ANGLE = Angle.fromTurns(0.01);
+    private static final Angle MIN_ANGLE = Angle.fromTurns(0.0);
     private static final Angle MAX_ANGLE = Angle.fromRadians(0.8 * Math.PI);
     private static final PIDFCoefficients pidfCoefficients = new PIDFCoefficients(
             30, 15, 0, 20);
