@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.components.interfaces.*;
+import org.firstinspires.ftc.teamcode.enums.OpModeId;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,13 +57,23 @@ public class RobotComponentStore {
         registerComponent(IClawComponent.class, clawComponent);
     }
 
+    public static void registerOpModeComponents(OpModeId opModeId, OpMode opMode) {
+        registerBothModes(opMode);
+        switch (opModeId) {
+            case TELEOP:
+                registerTeleOpComponents(opMode);
+                break;
+            case AUTONOMOUS:
+                registerAutonomousComponents(opMode);
+                break;
+        }
+    }
+
     /**
      * Register all components needed for TeleOp mode.
      * @param opMode The instance of the current OpMode.
      */
-    public static void registerTeleOpComponents(OpMode opMode) {
-        registerBothModes(opMode);
-
+    private static void registerTeleOpComponents(OpMode opMode) {
         GamepadComponent gamepadComponent = new GamepadComponent(opMode.gamepad1, opMode.gamepad2);
         registerComponent(ICommandComponent.class, gamepadComponent);
     }
@@ -71,8 +82,7 @@ public class RobotComponentStore {
      * Register all components needed for Autonomous mode.
      * @param opMode The instance of the current OpMode.
      */
-    public static void registerAutonomousComponents(OpMode opMode) {
-        registerBothModes(opMode);
+    private static void registerAutonomousComponents(OpMode opMode) {
     }
 
     /**
@@ -84,7 +94,6 @@ public class RobotComponentStore {
         }
     }
 
-    //TODO: Find how to reference code in docstrings.
     /**
      * Call the "updateTelemetry" method on all components.
      * @param telemetry
