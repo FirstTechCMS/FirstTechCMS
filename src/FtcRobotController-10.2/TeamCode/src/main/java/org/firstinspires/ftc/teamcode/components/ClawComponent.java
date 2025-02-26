@@ -11,7 +11,7 @@ public class ClawComponent implements IClawComponent {
     private final Servo leftServo;
     private final Servo rightServo;
     private static final double servoPositionA = 1;
-    private static final double servoPositionB = 0;
+    private static final double servoPositionB = -0.1;
     private boolean isOpen;
 
     public ClawComponent(HardwareMap hardwareMap) {
