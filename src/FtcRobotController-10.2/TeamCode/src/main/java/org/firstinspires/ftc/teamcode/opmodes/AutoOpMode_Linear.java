@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.components.RobotComponentStore;
 import org.firstinspires.ftc.teamcode.components.interfaces.IArmComponent;
 import org.firstinspires.ftc.teamcode.components.interfaces.IDrivetrainComponent;
+import org.firstinspires.ftc.teamcode.enums.OpModeId;
 import org.firstinspires.ftc.teamcode.math.Angle;
 
 @TeleOp(name = "Auto OpMode", group = "Linear OpMode")
@@ -15,7 +16,7 @@ public class AutoOpMode_Linear extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        RobotComponentStore.registerAutonomousComponents(this);
+        RobotComponentStore.registerOpModeComponents(OpModeId.AUTONOMOUS, this);
 
         waitForStart();
 

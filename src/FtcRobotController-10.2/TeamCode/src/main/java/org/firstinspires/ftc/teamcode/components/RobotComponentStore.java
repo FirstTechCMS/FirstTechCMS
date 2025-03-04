@@ -70,7 +70,7 @@ public class RobotComponentStore {
     }
 
     /**
-     * Register all components needed for TeleOp mode.
+     * Register components needed specifically for TeleOp mode.
      * @param opMode The instance of the current OpMode.
      */
     private static void registerTeleOpComponents(OpMode opMode) {
@@ -79,10 +79,11 @@ public class RobotComponentStore {
     }
 
     /**
-     * Register all components needed for Autonomous mode.
+     * Register components needed specifically for Autonomous mode.
      * @param opMode The instance of the current OpMode.
      */
     private static void registerAutonomousComponents(OpMode opMode) {
+        // Nothing yet to register
     }
 
     /**

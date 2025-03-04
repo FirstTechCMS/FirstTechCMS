@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.components.RobotComponentStore;
 import org.firstinspires.ftc.teamcode.components.interfaces.IDrivetrainComponent;
+import org.firstinspires.ftc.teamcode.enums.OpModeId;
 
 @TeleOp(name = "Main OpMode", group = "Linear OpMode")
 public class MainOpMode_Linear extends LinearOpMode {
@@ -14,12 +15,10 @@ public class MainOpMode_Linear extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        RobotComponentStore.registerTeleOpComponents(this);
+        RobotComponentStore.registerOpModeComponents(OpModeId.TELEOP, this);
 
         waitForStart();
         while (opModeIsActive()) {
-            IDrivetrainComponent drivetrain = RobotComponentStore.getComponent(IDrivetrainComponent.class);
-
             RobotComponentStore.update();
             RobotComponentStore.updateTelemetry(telemetry);
 
