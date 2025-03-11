@@ -4,6 +4,8 @@ import com.qualcomm.hardware.bosch.BHI260IMU;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -16,9 +18,11 @@ import org.firstinspires.ftc.teamcode.math.Angle;
 /** Implementation of the component that manages sensors. */
 public class SensorComponent implements ISensorComponent {
     private final BHI260IMU imu;
+    private final DistanceSensor distanceSensor;
 
     public SensorComponent(HardwareMap hardwareMap) {
         imu = hardwareMap.get(BHI260IMU.class, "imu");
+        distanceSensor = hardwareMap.get(DistanceSensor.class, "distance_sensor");
 
         BHI260IMU.Parameters parameters = new IMU.Parameters(
                 new RevHubOrientationOnRobot(
@@ -32,6 +36,10 @@ public class SensorComponent implements ISensorComponent {
      */
     public Angle getHeading() {
         return Angle.fromRadians(imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle);
+    }
+
+    public double getDistance() {
+        return distanceSensor.getDistance(DistanceUnit.CM);
     }
 
     @Override

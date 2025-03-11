@@ -8,4 +8,5 @@ import org.firstinspires.ftc.teamcode.math.Angle;
  * */
 public interface ISensorComponent extends IComponent {
     Angle getHeading();
+    double getDistance();
 }
