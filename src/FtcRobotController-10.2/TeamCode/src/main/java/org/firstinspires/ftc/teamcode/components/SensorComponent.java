@@ -18,11 +18,13 @@ import org.firstinspires.ftc.teamcode.math.Angle;
 /** Implementation of the component that manages sensors. */
 public class SensorComponent implements ISensorComponent {
     private final BHI260IMU imu;
-    private final DistanceSensor distanceSensor;
+    private final DistanceSensor leftDistanceSensor;
+    private final DistanceSensor downDistanceSensor;
 
     public SensorComponent(HardwareMap hardwareMap) {
         imu = hardwareMap.get(BHI260IMU.class, "imu");
-        distanceSensor = hardwareMap.get(DistanceSensor.class, "distance_sensor");
+        leftDistanceSensor = hardwareMap.get(DistanceSensor.class, "left_distance_sensor");
+        downDistanceSensor = hardwareMap.get(DistanceSensor.class, "down_distance_sensor");
 
         BHI260IMU.Parameters parameters = new IMU.Parameters(
                 new RevHubOrientationOnRobot(
@@ -38,9 +40,14 @@ public class SensorComponent implements ISensorComponent {
         return Angle.fromRadians(imu.getRobotOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.RADIANS).firstAngle);
     }
 
-    public double getDistance() {
-        return distanceSensor.getDistance(DistanceUnit.CM);
-    }
+    /**
+     * Returns the distance to the left in centimeters for navigating using the tags in the arena.
+     */
+    public double getDistanceLeft() { return leftDistanceSensor.getDistance(DistanceUnit.CM); }
+    /**
+     * Returns the distance from the claw to the ground.
+     */
+    public double getArmHeight() { return downDistanceSensor.getDistance(DistanceUnit.CM); }
 
     @Override
     public void update() {
@@ -50,5 +57,7 @@ public class SensorComponent implements ISensorComponent {
     public void updateTelemetry(Telemetry telemetry) {
         telemetry.addLine("======== Sensor ========");
         telemetry.addData("Heading", getHeading());
+        telemetry.addData("Distance Left", getDistanceLeft());
+        telemetry.addData("Arm height", getArmHeight());
     }
 }

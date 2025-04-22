@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.components.RobotComponentStore;
@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.components.interfaces.ISensorComponent;
 import org.firstinspires.ftc.teamcode.enums.OpModeId;
 import org.firstinspires.ftc.teamcode.math.Angle;
 
-@TeleOp(name = "Auto OpMode", group = "Linear OpMode")
-public class ForwardOpMode_Linear extends LinearOpMode {
+@Autonomous(name = "Test Sensors", group = "Test")
+public class TestSensorOpMode_Linear extends LinearOpMode {
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
@@ -23,9 +23,10 @@ public class ForwardOpMode_Linear extends LinearOpMode {
         ISensorComponent sensor = RobotComponentStore.getComponent(ISensorComponent.class);
         IDrivetrainComponent drivetrain = RobotComponentStore.getComponent(IDrivetrainComponent.class);
 
-        drivetrain.setMecanumDrive(Angle.fromDegrees(0), 0.3);
+        // Move forward until the something is in the way of the sensor
+        drivetrain.setMecanumDrive(Angle.fromDegrees(0), 0.1);
         while (opModeIsActive()) {
-            let distance = sensor.getDistance();
+            double distance = sensor.getDistanceLeft();
             if (distance < 10) {
                 drivetrain.setMecanumDrive(Angle.fromDegrees(0), 0);
             }
